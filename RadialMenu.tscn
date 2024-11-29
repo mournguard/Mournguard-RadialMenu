@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddxnob2qgu01o"]
+
+[ext_resource type="Script" uid="uid://bio6xv7od20ds" path="res://addons/Mournguard-RadialMenu/radial_menu.gd" id="1_yrv1o"]
+
+[node name="RadialMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yrv1o")
+
+[node name="Layers" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0

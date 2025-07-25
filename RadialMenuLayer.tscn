@@ -19,7 +19,7 @@ fill_from = Vector2(0.5, 0.5)
 layout_mode = 3
 anchors_preset = 0
 pivot_offset = Vector2(160, 160)
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_iom8y")
 
 [node name="Slot1" parent="." instance=ExtResource("2_4f3jx")]

@@ -26,9 +26,12 @@ func _enter_tree() -> void:
 	show_behind_parent = p is RadialMenuSlot
 	visible = p.get_parent() == menu.current_layer if p is RadialMenuSlot else true
 
+	if !%Center.pressed.is_connected(_on_center_pressed):
+		%Center.pressed.connect(_on_center_pressed)
+
 func _update() -> void:
 	var i := 1
-	for option in options:
+	for option: Variant in options:
 		var button := get_node("Slot"+str(i)) as RadialMenuSlot
 
 		if i == 8 and options.size() > 8:
@@ -44,7 +47,10 @@ func _update() -> void:
 			button.pressed.connect(func() -> void: menu.next(button.submenu))
 		elif option is RadialMenuOption:
 			button.text = option.display_name
-			button.pressed.connect(func() -> void: option.callable.call())
+			button.pressed.connect(func() -> void:
+				option.callable.call()
+				menu.close.call_deferred()
+			)
 		else:
 			button.visible = false
 
@@ -52,6 +58,12 @@ func _update() -> void:
 		var button := get_node("Slot"+str(i)) as RadialMenuSlot
 		button.visible = false
 		i += 1
+
+func _on_center_pressed() -> void:
+	if menu.current_layer != menu.base_layer:
+		menu.previous.call_deferred()
+	else:
+		menu.close.call_deferred()
 
 func to_slot() -> void:
 	position = - Vector2.ONE * RadialMenu.RADIAL_MENU_SIZE / 2 + Vector2.ONE * RadialMenuSlot.SIZE / 2
